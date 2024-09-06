@@ -1,0 +1,12 @@
+{
+    "type": "postgres",
+    "host": "localhost",
+    "port": 5432,
+    "username": "postgres",
+    "password": "aparatos",
+    "database": "usuarios_db",
+    "synchronize": true,
+    "logging": false,
+    "entities": ["src/entity/**/*.ts"]
+  }
+  
