@@ -10,10 +10,9 @@ AppDataSource.initialize()
   .then(() => {
     console.log("Conexión exitosa a la base de datos");
 
-    // Definir una ruta simple
-    app.post("/usuarios", async (req, res) => {
+    app.post("/register", async (req, res) => {
       const { name, email, password } = req.body;
-      const userRepository = AppDataSource.getRepository(Usuario); // Obtener el repositorio
+      const userRepository = AppDataSource.getRepository(Usuario); 
       const user = userRepository.create({ name, email, password });
       await userRepository.save(user);
       res.send(user);
