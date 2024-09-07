@@ -1,7 +1,7 @@
-import "reflect-metadata";
-import express from "express";
-import { AppDataSource } from "./data-source"; // Importar la conexión
-import { Usuario } from "./entity/Usuario";
+require("reflect-metadata");
+const express = require("express");
+const { AppDataSource } = require("./data-source"); // Importar la conexión
+const { Usuario } = require("./entity/Usuario");
 
 const app = express();
 app.use(express.json());
