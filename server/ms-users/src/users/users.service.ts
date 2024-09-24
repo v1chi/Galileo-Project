@@ -1,6 +1,7 @@
 import { Injectable } from '@nestjs/common';
 import { CreateUserDto } from './dto/create-user.dto';
 import { UpdateUserDto } from './dto/update-user.dto';
+import { LoginUserDto } from './dto/login-user.dto';
 import { Repository } from 'typeorm';
 import { User } from './entities/user.entity';
 import { InjectRepository } from '@nestjs/typeorm';
@@ -12,9 +13,29 @@ export class UsersService {
     private userRepository: Repository<User>,
   ) {}
   
-  async create(createUserDto: CreateUserDto) {
+  async register(createUserDto: CreateUserDto) {
     const user = createUserDto;
     return this.userRepository.save(user);
+  }
+
+  async login(loginUserDto: LoginUserDto): Promise<User>{
+    const {email, password} = loginUserDto;
+    const userExisting = await this.userRepository.findOne({where: {email}})
+    if (!userExisting) {
+      throw new Error('No se encontro usuario');
+    }
+    if(userExisting.password !== password){
+      throw new Error('Contraseña incorrecta');
+    }
+    return userExisting;
+  }
+
+  async updateProfile(id: number, updateUserDto: UpdateUserDto): Promise<User> {
+    const userExisting = await this.userRepository.findOneBy({ id });
+    if (!userExisting) {
+      throw new Error('No se encontro usuario');
+    }
+    return this.userRepository.save({ ...userExisting, ...updateUserDto });
   }
 
   async findAll(): Promise<User[]> {
@@ -27,14 +48,6 @@ export class UsersService {
       throw new Error('No se encontro usuario');
     }
     return userExisting;
-  }
-
-  async update(id: number, updateUserDto: UpdateUserDto): Promise<User> {
-    const userExisting = await this.userRepository.findOneBy({ id });
-    if (!userExisting) {
-      throw new Error('No se encontro usuario');
-    }
-    return this.userRepository.save({ ...userExisting, ...updateUserDto });
   }
 
   async remove(id: number): Promise<User> {
