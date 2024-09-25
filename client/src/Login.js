@@ -1,34 +1,28 @@
 import React, { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
 
 function LoginRegister() {
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
+  const [message, setMessage] = useState('');
+  const navigate = useNavigate(); 
 
   const handleLogin = async (e) => {
     e.preventDefault();
     try {
-      const response = await axios.post('http://localhost:3000/users/login', {
+      const response = await axios.post('http://localhost:3001/users/login', {
         email: username,
         password: password,
       });
-      console.log('Login exitoso:', response.data);
+      setMessage('Inicio de sesión exitoso');
     } catch (error) {
-      console.error('Error en el inicio de sesión:', error);
+      setMessage('Error en el inicio de sesión: ' + (error.response?.data?.message || 'Error desconocido'));
     }
   };
 
-  const handleRegister = async () => {
-    try {
-      const response = await axios.post('http://localhost:3000/users/register', {
-        name: username,
-        email: username,
-        password: password,
-      });
-      console.log('Registro exitoso:', response.data);
-    } catch (error) {
-      console.error('Error en el registro:', error);
-    }
+  const goToRegister = () => {
+    navigate('/register'); 
   };
 
   return (
@@ -57,9 +51,11 @@ function LoginRegister() {
         </div>
         <div className="button-group">
           <button type="submit">Iniciar sesión</button>
-          <button type="button" onClick={handleRegister}>Registrarse</button>
+          <button type="button" onClick={goToRegister}>Registrarse</button>
         </div>
       </form>
+
+      {message && <p>{message}</p>}
     </div>
   );
 }

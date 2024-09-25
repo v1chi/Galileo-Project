@@ -1,4 +1,4 @@
-import { Injectable } from '@nestjs/common';
+import { Injectable,  NotFoundException, UnauthorizedException  } from '@nestjs/common';
 import { CreateUserDto } from './dto/create-user.dto';
 import { UpdateUserDto } from './dto/update-user.dto';
 import { LoginUserDto } from './dto/login-user.dto';
@@ -22,10 +22,10 @@ export class UsersService {
     const {email, password} = loginUserDto;
     const userExisting = await this.userRepository.findOne({where: {email}})
     if (!userExisting) {
-      throw new Error('No se encontro usuario');
+      throw new NotFoundException('No se encontro usuario');
     }
     if(userExisting.password !== password){
-      throw new Error('Contraseña incorrecta');
+      throw new UnauthorizedException('Contraseña incorrecta');
     }
     return userExisting;
   }
