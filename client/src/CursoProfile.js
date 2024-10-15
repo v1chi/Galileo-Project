@@ -9,32 +9,23 @@ import {
   buttonContainerStyle, 
   buttonStyle, 
   imageContainerStyle, 
-  profileImageStyle ,
+  profileImageStyle,
   regresarButtonStyle 
 } from './styles'; // Asegúrate de que la ruta sea correcta
 
-
-function UserProfile({ profile, setProfile, onSave, onBack }) {
+function CursoProfile({ curso, setCurso, onSave, onBack }) {
   const defaultProfile = {
     image: '',
-    username: 'null',
-    email: 'null',
-    profession: 'null',
-    country: 'null',
-    gender: 'null',
+    cursoname: 'null',
+    codecurso: 'null',
   };
 
-  // Estado para manejar el perfil temporalmente
-  const [temporaryProfile, setTemporaryProfile] = useState({ ...defaultProfile });
-
-  // Si profile está vacío, usa el objeto por defecto
-  useEffect(() => {
-    setTemporaryProfile(profile && Object.keys(profile).length > 0 ? profile : defaultProfile);
-  }, [profile]);
+  // Si curso está vacío, usa el objeto por defecto
+  const currentCurso = curso && Object.keys(curso).length > 0 ? curso : defaultProfile;
 
   const handleChange = (e) => {
     const { name, value } = e.target;
-    setTemporaryProfile({ ...temporaryProfile, [name]: value });
+    setCurso({ ...currentCurso, [name]: value });
   };
 
   const handleImageChange = (e) => {
@@ -42,32 +33,31 @@ function UserProfile({ profile, setProfile, onSave, onBack }) {
     if (file) {
       const reader = new FileReader();
       reader.onloadend = () => {
-        setTemporaryProfile({ ...temporaryProfile, image: reader.result });
+        setCurso({ ...currentCurso, image: reader.result });
       };
       reader.readAsDataURL(file);
     }
   };
 
+  // Función de guardar que usa el onSave para devolver el curso actualizado
   const handleSave = () => {
-    onSave(temporaryProfile); // Devuelve el perfil actualizado
-  };
-
-  const handleBack = () => {
-    setTemporaryProfile(profile && Object.keys(profile).length > 0 ? profile : defaultProfile); // Restaura el perfil original
-    onBack(); // Llama a la función para regresar
+    onSave(currentCurso); // Devuelve el curso actualizado a través del prop onSave
   };
 
   return (
     <div style={containerStyle}>
-      <h2 style={headerStyle}>Perfil de Usuario</h2>
-      <div style={{ display: 'flex', flexDirection: 'column', gap: '10px' }}>  
-        {temporaryProfile.image && (
+      <h2 style={headerStyle}>Perfil del Curso</h2>
+      <div style={{ display: 'flex', flexDirection: 'column', gap: '10px' }}>
+        
+        {/* Manejo de la imagen del curso */}
+        {currentCurso.image && (
           <div style={imageContainerStyle}>
-            <img src={temporaryProfile.image} alt="Profile" style={profileImageStyle} />
+            <img src={currentCurso.image} alt="Course" style={profileImageStyle} />
           </div>
         )}
         
-        {['username', 'email', 'profession', 'country', 'gender'].map((field, index) => (
+        {/* Manejo de los datos del curso */}
+        {['cursoname', 'codecurso'].map((field, index) => (
           <div key={index} style={inputContainerStyle}>
             <label htmlFor={field} style={labelStyle}>
               {field.charAt(0).toUpperCase() + field.slice(1)}:
@@ -76,17 +66,18 @@ function UserProfile({ profile, setProfile, onSave, onBack }) {
               type="text"
               id={field}
               name={field}
-              value={temporaryProfile[field]} // Muestra el valor temporal
+              value={currentCurso[field]} // Muestra el valor de curso
               onChange={handleChange}
               style={inputStyle}
-              placeholder={`Ingrese su ${field}`}
+              placeholder={`Ingrese el ${field}`}
             />
           </div>
         ))}
         
+        {/* Botones para guardar o regresar */}
         <div style={buttonContainerStyle}>
           <button 
-            onClick={handleBack} // Llama a la función para regresar
+            onClick={onBack} // Llama a la función para regresar
             style={regresarButtonStyle}
           >
             Regresar
@@ -103,10 +94,5 @@ function UserProfile({ profile, setProfile, onSave, onBack }) {
       </div>
     </div>
   );
-  
 }
-export default UserProfile;
-  /*
-      llamada es :  <UserProfile profile={profile} setProfile={setProfile} />
-      import es : import UserProfile from './UserProfile'; // Asegúrate de que la ruta sea correcta
-  */
+export default CursoProfile;
