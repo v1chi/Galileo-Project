@@ -1,0 +1,46 @@
+# ------------------------------------------------------
+# THIS FILE WAS AUTOMATICALLY GENERATED (DO NOT MODIFY)
+# ------------------------------------------------------
+
+type User {
+  id: Int!
+  nombre: String!
+  email: String!
+  password: String!
+  profesion: String
+  pais: String
+  genero: String
+  descripcion: String
+  isActive: Boolean!
+}
+
+type Query {
+  getAllUsers: [User!]!
+  getUserById(id: Int!): User!
+  login(loginUserDto: LoginUserDto!): User!
+}
+
+input LoginUserDto {
+  email: String!
+  password: String!
+}
+
+type Mutation {
+  register(createUserDto: CreateUserDto!): User!
+  updateUserProfile(id: Int!, updateUserDto: UpdateUserDto!): User!
+}
+
+input CreateUserDto {
+  nombre: String!
+  email: String!
+  password: String!
+}
+
+input UpdateUserDto {
+  nombre: String
+  password: String
+  profesion: String
+  pais: String
+  genero: String
+  descripcion: String
+}
