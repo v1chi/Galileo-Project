@@ -1,11 +1,28 @@
+ import { InputType, Field, Float } from '@nestjs/graphql';
+
+@InputType()
 export class CreateCursoDto {
-    nombre: string;
-    descripcion: string;
-    precio: number;
-    categoria: string;
-    rating: number;
-    nivel: string;
-    instructor: string;
-    urlImagen: string;
+  @Field()
+  nombre: string;
+
+  @Field()
+  descripcion: string;
+
+  @Field(() => Float)
+  precio: number;
+
+  @Field()
+  categoria: string;
+
+  @Field(() => Float)
+  rating: number;
+
+  @Field()
+  nivel: string;
+
+  @Field()
+  instructor: string;
+
+  @Field()
+  urlImagen: string;
 }
-    

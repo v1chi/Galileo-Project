@@ -1,33 +1,42 @@
 import { Entity, Column, PrimaryGeneratedColumn } from 'typeorm';
+import { ObjectType, Field, Int, Float } from '@nestjs/graphql';
 
+@ObjectType()
 @Entity()
-export class Curso{
+export class Curso {
+  @Field(() => Int)
+  @PrimaryGeneratedColumn()
+  id: number;
 
-    @PrimaryGeneratedColumn()
-    id: number;
+  @Field()
+  @Column({ type: 'varchar' })
+  nombre: string;
 
-    @Column({ type: "varchar", unique: false })
-    nombre: string;
+  @Field()
+  @Column({ type: 'varchar', nullable: false })
+  descripcion: string;
 
-    @Column({ type: "varchar", nullable: false })
-    descripcion: string;
+  @Field(() => Float)
+  @Column('decimal')
+  precio: number;
 
-    @Column('decimal')
-    precio: number;
+  @Field()
+  @Column()
+  categoria: string;
 
-    @Column()
-    categoria: string;
+  @Field(() => Float)
+  @Column('decimal')
+  rating: number;
 
-    @Column('decimal')
-    rating: number;
-    
-    @Column()
-    nivel: string;
+  @Field()
+  @Column()
+  nivel: string;
 
-    @Column()
-    instructor: string;
+  @Field()
+  @Column()
+  instructor: string;
 
-    @Column()
-    urlImagen: string;
-
+  @Field()
+  @Column()
+  urlImagen: string;
 }

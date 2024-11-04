@@ -2,6 +2,9 @@ import { Module } from '@nestjs/common';
 import { CursosModule } from './cursos/cursos.module';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { Curso } from './cursos/entities/curso.entity';
+import { GraphQLModule } from '@nestjs/graphql';
+import { join } from 'path';
+import { ApolloDriver } from '@nestjs/apollo';
 
 @Module({
   imports: [
@@ -11,9 +14,13 @@ import { Curso } from './cursos/entities/curso.entity';
       port: 5432,
       username: 'postgres', 
       password: 'aparatos',  
-      database: 'prueba_cursos',  
+      database: 'cursos_galileo',  
       entities: [Curso],
       synchronize: true,  
+    }),
+    GraphQLModule.forRoot({
+      driver: ApolloDriver,
+      autoSchemaFile: join(process.cwd(), 'src/schema.gql'), // Generación automática del esquema
     }),
     CursosModule,  
   ],
