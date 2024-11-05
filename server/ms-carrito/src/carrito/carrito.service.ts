@@ -11,7 +11,7 @@ export class CarritoService {
     @InjectRepository(ProductoCarrito) private productoCarritoRepository: Repository<ProductoCarrito>,
   ) {}
 
-  // 1. Crear un carrito o devolver uno activo si el usuario ya tiene uno 
+  //Crear un carrito o devolver uno activo si el usuario ya tiene uno 
   async createCarrito(idUsuario: number): Promise<Carrito> {
     const carritoActivo = await this.carritoRepository.findOne({
       where: { idUsuario, estado: 'activo' },
@@ -25,13 +25,13 @@ export class CarritoService {
     return this.carritoRepository.save(nuevoCarrito);
   }
 
-  // 2. Añadir un curso al carrito
+  //Añadir un curso al carrito
   async addCurso(idCarrito: number, idCurso: number): Promise<ProductoCarrito> {
     const productoCarrito = this.productoCarritoRepository.create({ idCarrito, idCurso });
     return this.productoCarritoRepository.save(productoCarrito);
   }
 
-  // 3. Eliminar un curso de un carrito
+  //Eliminar un curso de un carrito
   async removeCursoFromCarrito(idCarrito: number, idCurso: number): Promise<void> {
     const curso = await this.productoCarritoRepository.findOne({
       where: { idCarrito, idCurso },
@@ -44,27 +44,16 @@ export class CarritoService {
     await this.productoCarritoRepository.remove(curso);
   }
 
-  // 4. Obtener el carrito activo de un usuario
-  async getCarritoActivo(idUsuario: number): Promise<Carrito> {
-    const carrito = await this.carritoRepository.findOne({
-      where: { idUsuario, estado: 'activo' },
-    });
 
-    if (!carrito) {
-      throw new NotFoundException('No tienes un carrito activo.');
-    }
-
-    return carrito;
+  // Marcar carrito como pendiente antes de confirmar la compra
+  async marcarCarritoComoPendiente(idCarrito: number): Promise<Carrito> {
+    const carrito = await this.carritoRepository.findOneBy({ id: idCarrito });
+    if (!carrito) throw new NotFoundException('El carrito no existe.');
+    carrito.estado = 'pendiente';
+    return this.carritoRepository.save(carrito);
   }
 
-  // 5. Obtener carritos finalizados del usuario
-  async getCarritosFinalizados(idUsuario: number): Promise<Carrito[]> {
-    return this.carritoRepository.find({
-      where: { idUsuario, estado: 'finalizado' },
-    });
-  }
-
-  // 6. Finalizar un carrito
+  // Finalizar un carrito, luego de confirmar la compra
   async finalizarCarrito(idCarrito: number): Promise<Carrito> {
     const carrito = await this.carritoRepository.findOneBy({ id: idCarrito });
 
@@ -74,5 +63,19 @@ export class CarritoService {
 
     carrito.estado = 'finalizado';
     return this.carritoRepository.save(carrito);
+  }
+
+  // Obtener el historial de compras
+  async getHistorialCompras(idUsuario: number): Promise<Carrito[]> {
+    return this.carritoRepository.find({
+      where: { idUsuario, estado: 'finalizado' },
+    });
+  }
+
+  // Obtener cursos de un carrito finalizado
+  async getCursosEnCarrito(idCarrito: number): Promise<ProductoCarrito[]> {
+    return this.productoCarritoRepository.find({
+      where: { idCarrito },
+    });
   }
 }

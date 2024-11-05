@@ -23,18 +23,25 @@ export class CarritoController {
     return this.carritoService.removeCursoFromCarrito(idCarrito, idCurso);
   }
 
-  @Get(':idUsuario/activo')
-  getCarritoActivo(@Param('idUsuario') idUsuario: number) {
-    return this.carritoService.getCarritoActivo(idUsuario);
-  }
-
-  @Get(':idUsuario/finalizados')
-  getCarritosFinalizados(@Param('idUsuario') idUsuario: number) {
-    return this.carritoService.getCarritosFinalizados(idUsuario);
+  @Patch(':idCarrito/pendiente')
+  async marcarCarritoComoPendiente(@Param('idCarrito') idCarrito: number) {
+    return this.carritoService.marcarCarritoComoPendiente(idCarrito);
   }
 
   @Patch(':idCarrito/finalizar')
   finalizarCarrito(@Param('idCarrito') idCarrito: number) {
     return this.carritoService.finalizarCarrito(idCarrito);
+  }
+
+  //Historial de carritos
+  @Get(':idUsuario/historial')
+  async getHistorialCompras(@Param('idUsuario') idUsuario: number) {
+    return this.carritoService.getHistorialCompras(idUsuario);
+  }
+
+  //Todos los cursos de un carrito especifico 
+  @Get(':idCarrito/cursos')
+  async getCursosEnCarrito(@Param('idCarrito') idCarrito: number) {
+    return this.carritoService.getCursosEnCarrito(idCarrito);
   }
 }
