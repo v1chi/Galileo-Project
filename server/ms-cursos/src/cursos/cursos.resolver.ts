@@ -3,6 +3,7 @@ import { CursosService } from './cursos.service';
 import { Curso } from './entities/curso.entity';
 import { CreateCursoDto } from './dto/create-curso.dto';
 import { UpdateCursoDto } from './dto/update-curso.dto';
+import { FilterCursoDto } from './dto/filter-curso.dto';
 
 @Resolver(() => Curso)
 export class CursosResolver {
@@ -34,5 +35,11 @@ export class CursosResolver {
   @Mutation(() => Curso)
   removeCurso(@Args('id', { type: () => Int }) id: number) {
     return this.cursosService.remove(id);
+  }
+
+  //Obtener cursos filtrados usando el DTO
+  @Query(() => [Curso], { name: 'getFilteredCursos' })
+  findFiltered(@Args('filterCursoDto', { type: () => FilterCursoDto }) filterCursoDto: FilterCursoDto) {
+    return this.cursosService.findFiltered(filterCursoDto);
   }
 }

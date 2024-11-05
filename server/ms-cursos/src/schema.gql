@@ -1,0 +1,57 @@
+# ------------------------------------------------------
+# THIS FILE WAS AUTOMATICALLY GENERATED (DO NOT MODIFY)
+# ------------------------------------------------------
+
+type Curso {
+  id: Int!
+  nombre: String!
+  descripcion: String!
+  precio: Float!
+  categoria: String!
+  rating: Float!
+  nivel: String!
+  instructor: String!
+  urlImagen: String!
+}
+
+type Query {
+  getAllCursos: [Curso!]!
+  getCursoById(id: Int!): Curso!
+  getFilteredCursos(filterCursoDto: FilterCursoDto!): [Curso!]!
+}
+
+input FilterCursoDto {
+  categoria: String
+  minPrecio: Float
+  maxPrecio: Float
+  nivel: String
+  nombre: String
+}
+
+type Mutation {
+  createCurso(createCursoDto: CreateCursoDto!): Curso!
+  updateCurso(id: Int!, updateCursoDto: UpdateCursoDto!): Curso!
+  removeCurso(id: Int!): Curso!
+}
+
+input CreateCursoDto {
+  nombre: String!
+  descripcion: String!
+  precio: Float!
+  categoria: String!
+  rating: Float!
+  nivel: String!
+  instructor: String!
+  urlImagen: String!
+}
+
+input UpdateCursoDto {
+  nombre: String
+  descripcion: String
+  precio: Float
+  categoria: String
+  rating: Float
+  nivel: String
+  instructor: String
+  urlImagen: String
+}

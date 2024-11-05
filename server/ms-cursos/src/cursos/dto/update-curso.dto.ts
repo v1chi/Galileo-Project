@@ -2,28 +2,28 @@ import { InputType, Field, Float } from '@nestjs/graphql';
 
 @InputType()
 export class UpdateCursoDto {
-    @Field()
+    @Field({ nullable: true })
     nombre?: string;
 
-    @Field()
+    @Field({ nullable: true })
     descripcion?: string;
 
-    @Field()
+    @Field({ nullable: true })
     precio?: number;
 
-    @Field()
+    @Field({ nullable: true })
     categoria?: string;
 
-    @Field()
+    @Field({ nullable: true })
     rating?: number;
 
-    @Field()
+    @Field({ nullable: true })
     nivel?: string;
 
-    @Field()
+    @Field({ nullable: true })
     instructor?: string;
 
-    @Field()
+    @Field({ nullable: true })
     urlImagen?: string;
 }
     
