@@ -18,6 +18,7 @@ type Query {
   getAllCursos: [Curso!]!
   getCursoById(id: Int!): Curso!
   getFilteredCursos(filterCursoDto: FilterCursoDto!): [Curso!]!
+  getCoursePrice(courseId: Float!): String!
 }
 
 input FilterCursoDto {

@@ -42,4 +42,11 @@ export class CursosResolver {
   findFiltered(@Args('filterCursoDto', { type: () => FilterCursoDto }) filterCursoDto: FilterCursoDto) {
     return this.cursosService.findFiltered(filterCursoDto);
   }
+
+  // Resuelve la consulta de precio del curso a través de GraphQL
+  @Query(() => String)
+  async getCoursePrice(@Args('courseId') courseId: number) {
+    const priceResponse = await this.cursosService.handleCoursePriceRequest({ courseId });
+    return priceResponse.price;
+  }
 }

@@ -1,16 +1,20 @@
-import { Injectable, NotFoundException } from '@nestjs/common';
+import { Injectable, NotFoundException, Inject } from '@nestjs/common';
 import { CreateCursoDto } from './dto/create-curso.dto';
 import { UpdateCursoDto } from './dto/update-curso.dto';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository, Between, Like } from 'typeorm';
 import { Curso } from './entities/curso.entity';
 import { FilterCursoDto } from './dto/filter-curso.dto';
+import { ClientProxy } from '@nestjs/microservices';
+import { MessagePattern, Payload } from '@nestjs/microservices'; 
+
 
 @Injectable()
 export class CursosService {
   constructor(
     @InjectRepository(Curso)
     private readonly cursoRepository: Repository<Curso>,
+    @Inject('COURSE_SERVICE') private readonly client: ClientProxy, // RabbitMQ client
   ) {}
 
   async create(createCursoDto: CreateCursoDto){
@@ -57,4 +61,19 @@ export class CursosService {
 
     return this.cursoRepository.find({ where: whereConditions });
   }
+
+  // Método que se suscribe a RabbitMQ para escuchar las solicitudes de precio
+  @MessagePattern({ cmd: 'get_course_price' })
+  async handleCoursePriceRequest(@Payload() data: { courseId: number }) {
+    console.log(`Recibiendo solicitud de precio para el curso con ID: ${data.courseId}`);
+    const curso = await this.cursoRepository.findOne({ where: { id: data.courseId } });
+
+    if (!curso) {
+      throw new NotFoundException('Curso no encontrado');
+    }
+
+    return { price: curso.precio };  // Devuelve el precio del curso
+  }
+
+
 }
