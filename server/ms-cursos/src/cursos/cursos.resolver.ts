@@ -1,4 +1,4 @@
-import { Resolver, Query, Mutation, Args, Int } from '@nestjs/graphql';
+import { Resolver, Query, Mutation, Args, Int, Float } from '@nestjs/graphql';
 import { CursosService } from './cursos.service';
 import { Curso } from './entities/curso.entity';
 import { CreateCursoDto } from './dto/create-curso.dto';
@@ -44,9 +44,9 @@ export class CursosResolver {
   }
 
   // Resuelve la consulta de precio del curso a través de GraphQL
-  @Query(() => String)
+  @Query(() => Float)
   async getCoursePrice(@Args('courseId') courseId: number) {
     const priceResponse = await this.cursosService.handleCoursePriceRequest({ courseId });
-    return priceResponse.price;
+    return priceResponse.precio;
   }
 }

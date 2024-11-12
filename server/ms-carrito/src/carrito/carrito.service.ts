@@ -32,9 +32,12 @@ export class CarritoService {
 
   // Método que agrega un curso al carrito y actualiza el precio
   async addCurso(idCarrito: number, idCurso: number) {
-    // Solicitar el precio del curso desde RabbitMQ
+
+    console.log("entre en carrito")
+
+    // Solicitar el precio del curso
     const coursePriceResponse = await this.client.send({ cmd: 'get_course_price' }, { courseId: idCurso }).toPromise();
-    const precioCurso = coursePriceResponse.price;  // Precio del curso
+    const precioCurso = coursePriceResponse.precio;  
 
     // Agregar el curso al carrito
     const productoCarrito = new ProductoCarrito();
@@ -49,11 +52,11 @@ export class CarritoService {
       throw new Error('Carrito no encontrado');
     }
 
-    // Actualizar el monto del carrito
+    // Actualizar el monto 
     carrito.monto += precioCurso;
     await this.carritoRepository.save(carrito);
 
-    return carrito;  // Retornar el carrito actualizado
+    return carrito;  
   }
 
   //Eliminar un curso de un carrito
@@ -104,16 +107,4 @@ export class CarritoService {
     });
   }
 
-  requestCoursePrice(courseId: number): Observable<any> {
-    console.log(`Enviando mensaje al microservicio de Cursos con cmd: 'get_course_price' para el curso con ID: ${courseId}`);
-    return this.client.send({ cmd: 'get_course_price' }, { courseId }).pipe(
-      tap((response) => {
-        console.log('Respuesta recibida desde el microservicio de Cursos:', response);
-      }),
-      catchError((err) => {
-        console.error('Error al obtener el precio del curso:', err);
-        throw err;
-      })
-    );
-  }
 }

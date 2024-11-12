@@ -72,7 +72,7 @@ export class CursosService {
       throw new NotFoundException('Curso no encontrado');
     }
 
-    return { price: curso.precio };  // Devuelve el precio del curso
+    return { precio: curso.precio }; 
   }
 
 
