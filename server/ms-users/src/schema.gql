@@ -28,6 +28,7 @@ input LoginUserDto {
 type Mutation {
   register(createUserDto: CreateUserDto!): User!
   updateUserProfile(id: Int!, updateUserDto: UpdateUserDto!): User!
+  deleteUser(id: Int!): User!
 }
 
 input CreateUserDto {

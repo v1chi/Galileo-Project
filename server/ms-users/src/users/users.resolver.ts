@@ -36,4 +36,9 @@ export class UsersResolver {
   ) {
     return this.usersService.updateProfile(id, updateUserDto);
   }
+
+   @Mutation(() => User, { name: 'deleteUser' })
+  removeUser(@Args('id', { type: () => Int }) id: number) {
+    return this.usersService.remove(id);
+  }
 }
