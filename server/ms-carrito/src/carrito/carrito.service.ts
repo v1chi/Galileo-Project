@@ -32,13 +32,7 @@ export class CarritoService {
 
   // Método que agrega un curso al carrito y actualiza el precio
   async addCurso(idCarrito: number, idCurso: number) {
-
-    console.log("entre en carrito")
-
-    // Solicitar el precio del curso
-    const coursePriceResponse = await this.client.send({ cmd: 'get_course_price' }, { courseId: idCurso }).toPromise();
-    const precioCurso = coursePriceResponse.precio;  
-
+    
     // Agregar el curso al carrito
     const productoCarrito = new ProductoCarrito();
     productoCarrito.idCarrito = idCarrito;
@@ -53,7 +47,7 @@ export class CarritoService {
     }
 
     // Actualizar el monto 
-    carrito.monto += precioCurso;
+    carrito.monto += 100;
     await this.carritoRepository.save(carrito);
 
     return carrito;  
@@ -105,6 +99,12 @@ export class CarritoService {
     return this.productoCarritoRepository.find({
       where: { idCarrito },
     });
+  }
+
+  // Método para obtener un carrito por ID
+  async findOneById(id: number): Promise<Carrito> {
+    // Busca el carrito por ID y retorna el resultado
+    return this.carritoRepository.findOne({ where: { id } });
   }
 
 }

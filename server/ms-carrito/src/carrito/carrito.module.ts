@@ -3,8 +3,9 @@ import { TypeOrmModule } from '@nestjs/typeorm';
 import { Carrito } from './entities/carrito.entity';
 import { ProductoCarrito } from '../producto-carrito/entities/producto-carrito.entity'; 
 import { CarritoService } from './carrito.service';
-import { CarritoController } from './carrito.controller';
+//import { CarritoController } from './carrito.controller';
 import { ClientsModule, Transport } from '@nestjs/microservices';
+import { CarritoResolver } from './carrito.resolver';
 
 @Module({
   imports: [TypeOrmModule.forFeature([Carrito, ProductoCarrito]),
@@ -13,14 +14,15 @@ import { ClientsModule, Transport } from '@nestjs/microservices';
       name: 'COURSE_SERVICE',
       transport: Transport.RMQ,
       options: {
-        urls: ['amqp://localhost:5672'], // Asegúrate de que RabbitMQ esté corriendo
-        queue: 'course_queue', // La cola debe coincidir con la que se configura en el microservicio de cursos
+        urls: ['amqp://localhost:5672'], 
+        queue: 'course_queue', 
         queueOptions: { durable: false },
       },
     },
   ]),
+
   ],
-  controllers: [CarritoController],
-  providers: [CarritoService],
+  //controllers: [CarritoController],
+  providers: [CarritoService, CarritoResolver],
 })
 export class CarritoModule {}

@@ -1,15 +1,12 @@
 import { Module } from '@nestjs/common';
-import { AppController } from './app.controller';
-import { AppService } from './app.service';
-import { CarritoController } from './carrito/carrito.controller';
 import { CarritoModule } from './carrito/carrito.module';
-import { CarritoService } from './carrito/carrito.service';
-import { ProductoCarritoController } from './producto-carrito/producto-carrito.controller';
-import { ProductoCarritoService } from './producto-carrito/producto-carrito.service';
 import { ProductoCarritoModule } from './producto-carrito/producto-carrito.module';
 import { ProductoCarrito } from './producto-carrito/entities/producto-carrito.entity';
 import { Carrito } from './carrito/entities/carrito.entity';
 import { TypeOrmModule } from '@nestjs/typeorm';
+import { ApolloDriver } from '@nestjs/apollo';
+import { GraphQLModule } from '@nestjs/graphql';
+import { join } from 'path';
 
 @Module({
   imports: [TypeOrmModule.forRoot({
@@ -21,7 +18,12 @@ import { TypeOrmModule } from '@nestjs/typeorm';
     database: 'carrito',
     entities: [Carrito, ProductoCarrito],
     synchronize: true,
-  }), CarritoModule, ProductoCarritoModule],
+  }), 
+  GraphQLModule.forRoot({
+    driver: ApolloDriver,
+    autoSchemaFile: join(process.cwd(), 'src/schema.gql'), // Generación automática del esquema
+  }),
+  CarritoModule, ProductoCarritoModule],
   controllers: [],
   providers: [],
 })

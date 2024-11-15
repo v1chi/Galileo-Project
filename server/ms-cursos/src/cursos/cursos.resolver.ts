@@ -43,10 +43,4 @@ export class CursosResolver {
     return this.cursosService.findFiltered(filterCursoDto);
   }
 
-  // Resuelve la consulta de precio del curso a través de GraphQL
-  @Query(() => Float)
-  async getCoursePrice(@Args('courseId') courseId: number) {
-    const priceResponse = await this.cursosService.handleCoursePriceRequest({ courseId });
-    return priceResponse.precio;
-  }
 }

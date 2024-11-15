@@ -62,18 +62,7 @@ export class CursosService {
     return this.cursoRepository.find({ where: whereConditions });
   }
 
-  // Método que se suscribe a RabbitMQ para escuchar las solicitudes de precio
-  @MessagePattern({ cmd: 'get_course_price' })
-  async handleCoursePriceRequest(@Payload() data: { courseId: number }) {
-    console.log(`Recibiendo solicitud de precio para el curso con ID: ${data.courseId}`);
-    const curso = await this.cursoRepository.findOne({ where: { id: data.courseId } });
 
-    if (!curso) {
-      throw new NotFoundException('Curso no encontrado');
-    }
-
-    return { precio: curso.precio }; 
-  }
 
 
 }
