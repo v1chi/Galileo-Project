@@ -13,7 +13,7 @@ import { ApolloDriver } from '@nestjs/apollo';
       host: 'localhost',
       port: 5432,
       username: 'postgres', 
-      password: 'aparatos',  
+      password: 'admin123',  
       database: 'cursos_galileo',  
       entities: [Curso],
       synchronize: true,  

@@ -7,7 +7,7 @@ import { FilterCursoDto } from './dto/filter-curso.dto';
 
 @Resolver(() => Curso)
 export class CursosResolver {
-  constructor(private readonly cursosService: CursosService) {}
+  constructor(private  cursosService: CursosService) {}
 
   @Query(() => [Curso], { name: 'getAllCursos' })
   findAll() {
@@ -44,9 +44,9 @@ export class CursosResolver {
   }
 
   // Resuelve la consulta de precio del curso a través de GraphQL
-  @Query(() => Float)
-  async getCoursePrice(@Args('courseId') courseId: number) {
-    const priceResponse = await this.cursosService.handleCoursePriceRequest({ courseId });
-    return priceResponse.precio;
-  }
+  // @Query(() => Float)
+  // async getCoursePrice(@Args('courseId') courseId: number) {
+  //   const priceResponse = await this.cursosService.handleCoursePriceRequest({ courseId });
+  //   return priceResponse.precio;
+  // }
 }
