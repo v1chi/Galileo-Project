@@ -1,0 +1,30 @@
+# ------------------------------------------------------
+# THIS FILE WAS AUTOMATICALLY GENERATED (DO NOT MODIFY)
+# ------------------------------------------------------
+
+type Carrito {
+  id: Int!
+  idUsuario: Int!
+  monto: Float!
+  estado: String!
+}
+
+type ProductoCarrito {
+  id: Int!
+  idCarrito: Int!
+  idCurso: Int!
+}
+
+type Query {
+  getCarrito(id: Float!): Carrito!
+  getHistorialCompras(idUsuario: Float!): [Carrito!]!
+  getCursosEnCarrito(idCarrito: Float!): [ProductoCarrito!]!
+}
+
+type Mutation {
+  createCarrito(idUsuario: Float!): Carrito!
+  addCurso(idCarrito: Float!, idCurso: Float!): Carrito!
+  removeCurso(idCarrito: Float!, idCurso: Float!): Boolean!
+  marcarCarritoComoPendiente(idCarrito: Float!): Carrito!
+  finalizarCarrito(idCarrito: Float!): Carrito!
+}
