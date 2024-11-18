@@ -7,6 +7,9 @@ export class UpdateUserDto {
   nombre?: string
 
   @Field({ nullable: true })
+  email?: string;
+
+  @Field({ nullable: true })
   password?: string;
 
   @Field({ nullable: true })

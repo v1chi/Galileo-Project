@@ -7,7 +7,7 @@ async function bootstrap() {
 
   // app.connectMicroservice<MicroserviceOptions>({ transport: Transport.RMQ, options: { urls: ['amqp://localhost:5672'], queue: 'course_queue', queueOptions: { durable: false }, }, }); 
   // await app.startAllMicroservices();
-
+  app.enableCors();
   await app.listen(3002);
   console.log(`Servidor corriendo en el puerto ${3002}`);
 }
