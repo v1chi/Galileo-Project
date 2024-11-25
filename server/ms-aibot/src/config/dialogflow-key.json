@@ -1,0 +1,14 @@
+{
+    "type": "service_account",
+    "project_id": "glassy-storm-442723-g8",
+    "private_key_id": "f3a57611160968c5d78c1d4095a4b48cf024124f",
+    "private_key": "-----BEGIN PRIVATE KEY-----\nMIIEvQIBADANBgkqhkiG9w0BAQEFAASCBKcwggSjAgEAAoIBAQDnoilMbDjm5zPH\nT/CjQmUQ0nR0v75aLDpKM11kQfHRjMWbjssURDXaiAE0o6si+wryFxyMfo/9tmq8\nkASqbZxL6AB0reCmzME26dKkzXpBYx7wz1v5au3lAX9TiKRmsJRrS3E1F87cKPjO\n0StSjRnGn73/3BuKOdo3lk+a6HKwySOTEFeboYcaRdnvQdpr2O00o998rCgqjTnm\nhv6aUV5Yi3+oVUXnVwtXgJLgqkUPvxabrH1rduzpOwqPsZf9PzsEpcS3N2iU9H1s\n7HgythEcpWo6HAGu0LuFcH1xhfyPGntqXPyr7pu2P/TV+xffUoTgwKaMaqU7ofzA\n80qn7VV/AgMBAAECggEAOQqjFvHTtXEcPCoAfYPdNZ5OFW4ep0Aa/qjVh9oBffQn\nuZ4Zfp0pke5KNbdUbqHZ2TI90o9cUEN614Kz03B4u+yfKBylpQ3pSueb+v+q6q1J\nMk4uPSbK/Mk4nM6ahbtYYW/LqiJ5y5e/Zdb2zzZ2MYanGHoQwiJrDaNTaTdy/vuh\nVdJ8GswbZ69oE/9iVHZ0jMYMunYXAIi2cYkKCqYE4Rsl/p+zLCn3sRHFxQAjzP8h\nY/gzgDMSqrSwvbR6SPcnvSQ6C0vW3mu9qig8DjMYlvqla9hHJwAtvT2dxhJPt8eH\nGPdgbPEyj5qcp7RoEJiVHC9p826yWdaqw7sx8O8ZmQKBgQD/u2M3S7bjvrZHvyJc\nvSTmqUWZtcmyLbN6bSGnkbKjNvEF6E27q1IBQB617pzzQuEHAn+DWt1sl16Ci5c3\nP6c1B45HxRFLZJmw8AKCwJFRTSRdQFJ+0l/v8WLJ+8uDt+0ogwMpdOL4KQ2pv4UL\nBnauu0a4ydnZ2SBNkHtBPLFhhQKBgQDn4E7j21uW8NvbKd2wecI0x3Hauw3mbMdd\nMCcGLFMrxEkh9Nr8ffTk3LdtIvDVjKyYsZgWNsFFGAWvxrqN9OoJH+jp6TBHcRAS\nE7eoCA4Fpo9eLrE995dobtXNalaHFVZMP+bpwAmRnVNYlNmi/6W8NyNyJfrF85Dr\nGDNLk/vIMwKBgQD7TZfYNO1KrJTPuIH6BF0I1nrw6/WCxOpEeo3B76lOPqVnmrsY\nmuiBFhOX0R4m5yffDZNk75v8JFvZiXdV8ZVMxVoKKRwvrHJjr9enybiD3nzHrnfi\n7LUeQ2VC+88oZ0wErYoj6RtJpn4ou23wQa/LUXnUCXetXnMiBcM5fn0JSQKBgD3z\numA6rX/onnUx/F84SOEdIJhWPeKA0cteIC8QDLC24utFpnSrmpDDP+bS3RHRYhPx\n7zaQLpctUeei6xkehKEne21ztkiANtD9n6YvcL+lvsxlIUnzKurmIg2eCbxRwRri\nP+nYOzZCmJAkRPm94CQnfzryVswoxWFqt9nLkgvtAoGAI/d6YhAEgIqHrnXmb9UT\nBPrWg/35f1O2pFzeJupXXxkM8CexQnfk6lYMiyeLyLQxi7rGjWVs9MhFvDiaoZT0\n2RYFS7VpHjIirbCK8P+noUrfV6tKgJB/IYg3EQLG0MpoNon3gh2MrVQbCcgbGGwB\nC+D2DIVmH/2ruwNBDBktOnA=\n-----END PRIVATE KEY-----\n",
+    "client_email": "id-test-bot-galileo@glassy-storm-442723-g8.iam.gserviceaccount.com",
+    "client_id": "114963186673498424664",
+    "auth_uri": "https://accounts.google.com/o/oauth2/auth",
+    "token_uri": "https://oauth2.googleapis.com/token",
+    "auth_provider_x509_cert_url": "https://www.googleapis.com/oauth2/v1/certs",
+    "client_x509_cert_url": "https://www.googleapis.com/robot/v1/metadata/x509/id-test-bot-galileo%40glassy-storm-442723-g8.iam.gserviceaccount.com",
+    "universe_domain": "googleapis.com"
+  }
+  
