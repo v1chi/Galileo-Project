@@ -1,4 +1,4 @@
-import { Resolver, Query, Mutation, Args } from '@nestjs/graphql';
+import { Resolver, Query, Mutation, Args, Int } from '@nestjs/graphql';
 import { CarritoService } from './carrito.service';
 import { Carrito } from './entities/carrito.entity';
 import { ProductoCarrito } from '../producto-carrito/entities/producto-carrito.entity'; // Importamos ProductoCarrito
@@ -8,29 +8,41 @@ import { ProductoCarrito } from '../producto-carrito/entities/producto-carrito.e
 export class CarritoResolver {
   constructor(private readonly carritoService: CarritoService) {}
 
+  // Consulta para obtener todos los carritos
+  @Query(() => [Carrito], { name: 'getAllCarritos' })
+  findAll() {
+    return this.carritoService.findAll();
+  }
+
   // Consulta para obtener un carrito por ID
   @Query(() => Carrito)
-  async getCarrito(@Args('id') id: number) {
+  async getCarrito(@Args('id', {type: () => Int}) id: number) {
     return this.carritoService.findOneById(id);  // Llama al servicio para obtener el carrito
   }
 
   // Consulta para obtener el historial de compras de un usuario
   @Query(() => [Carrito])
-  async getHistorialCompras(@Args('idUsuario') idUsuario: number) {
+  async getHistorialCompras(@Args('idUsuario', {type: () => Int}) idUsuario: number) {
     return this.carritoService.getHistorialCompras(idUsuario);  // Llama al servicio para obtener el historial
   }
 
+  @Query(() => [Carrito])
+  async getCarritoUsuario(@Args('idUsuario', {type: () => Int}) idUsuario: number) {
+    return this.carritoService.getCarritoUsuario(idUsuario);  // Llama al servicio para obtener el carrito activo
+  }
+
   // Mutación para crear un carrito
-  @Mutation(() => Carrito)
-  async createCarrito(@Args('idUsuario') idUsuario: number) {
+  @Mutation(() => Carrito, { name: 'createCarrito' })
+  createCarrito(@Args('idUsuario', {type: () => Int}) idUsuario: number) {
     return this.carritoService.createCarrito(idUsuario);  // Llama al servicio para crear el carrito
   }
+
 
   // Mutación para agregar un curso al carrito
   @Mutation(() => Carrito)
   async addCurso(
-    @Args('idCarrito') idCarrito: number,
-    @Args('idCurso') idCurso: number
+    @Args('idCarrito', {type: () => Int}) idCarrito: number,
+    @Args('idCurso', {type: () => Int}) idCurso: number
   ) {
     return this.carritoService.addCurso(idCarrito, idCurso);  // Llama al servicio para agregar el curso al carrito
   }
@@ -38,8 +50,8 @@ export class CarritoResolver {
   // Mutación para eliminar un curso del carrito
   @Mutation(() => Boolean)
   async removeCurso(
-    @Args('idCarrito') idCarrito: number,
-    @Args('idCurso') idCurso: number
+    @Args('idCarrito', {type: () => Int}) idCarrito: number,
+    @Args('idCurso', {type: () => Int}) idCurso: number
   ) {
     await this.carritoService.removeCursoFromCarrito(idCarrito, idCurso);  // Llama al servicio para eliminar el curso
     return true;
@@ -47,19 +59,19 @@ export class CarritoResolver {
 
   // Mutación para marcar el carrito como pendiente
   @Mutation(() => Carrito)
-  async marcarCarritoComoPendiente(@Args('idCarrito') idCarrito: number) {
+  async marcarCarritoComoPendiente(@Args('idCarrito', {type: () => Int}) idCarrito: number) {
     return this.carritoService.marcarCarritoComoPendiente(idCarrito);  // Llama al servicio para marcar el carrito como pendiente
   }
 
   // Mutación para finalizar el carrito
   @Mutation(() => Carrito)
-  async finalizarCarrito(@Args('idCarrito') idCarrito: number) {
+  async finalizarCarrito(@Args('idCarrito', {type: () => Int}) idCarrito: number) {
     return this.carritoService.finalizarCarrito(idCarrito);  // Llama al servicio para finalizar el carrito
   }
 
   // Consulta para obtener los cursos de un carrito finalizado
   @Query(() => [ProductoCarrito])
-  async getCursosEnCarrito(@Args('idCarrito') idCarrito: number) {
+  async getCursosEnCarrito(@Args('idCarrito', {type: () => Int}) idCarrito: number) {
     return this.carritoService.getCursosEnCarrito(idCarrito);  // Llama al servicio para obtener los cursos
   }
 }

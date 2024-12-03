@@ -13,7 +13,7 @@ export class CarritoService {
   constructor(
     @InjectRepository(Carrito) private carritoRepository: Repository<Carrito>,
     @InjectRepository(ProductoCarrito) private productoCarritoRepository: Repository<ProductoCarrito>,
-    @Inject('COURSE_SERVICE') private readonly client: ClientProxy, // RabbitMQ client
+    // @Inject('COURSE_SERVICE') private readonly client: ClientProxy, // RabbitMQ client
   ) {}
 
   //Crear un carrito o devolver uno activo si el usuario ya tiene uno 
@@ -94,7 +94,14 @@ export class CarritoService {
     });
   }
 
-  // Obtener cursos de un carrito finalizado
+  //Obtener carrito activo de un usuario
+    async getCarritoUsuario(idUsuario: number): Promise<Carrito[]> {
+    return this.carritoRepository.find({
+      where: { idUsuario, estado: 'activo' },
+    });
+  }
+
+  // Obtener cursos de un carrito 
   async getCursosEnCarrito(idCarrito: number): Promise<ProductoCarrito[]> {
     return this.productoCarritoRepository.find({
       where: { idCarrito },
@@ -106,5 +113,13 @@ export class CarritoService {
     // Busca el carrito por ID y retorna el resultado
     return this.carritoRepository.findOne({ where: { id } });
   }
+
+
+  // Método para obtener todos los carritos
+  findAll() {
+    // Retorna todos los carritos
+    return this.carritoRepository.find();
+  }
+
 
 }

@@ -14,7 +14,7 @@ import { join } from 'path';
     host: 'localhost',
     port: 5432,
     username: 'postgres',
-    password: 'aparatos',
+    password: 'admin123',
     database: 'carrito',
     entities: [Carrito, ProductoCarrito],
     synchronize: true,
