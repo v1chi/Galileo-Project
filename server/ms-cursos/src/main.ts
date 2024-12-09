@@ -16,6 +16,7 @@ async function bootstrap() {
   });
 
   // Iniciar ambos servicios
+  app.enableCors();
   await app.startAllMicroservices();
   await app.listen(3002); // Puerto para el servidor HTTP y el Playground de GraphQL
 }
