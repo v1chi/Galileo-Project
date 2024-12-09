@@ -7,6 +7,10 @@ import { TypeOrmModule } from '@nestjs/typeorm';
 import { ApolloDriver } from '@nestjs/apollo';
 import { GraphQLModule } from '@nestjs/graphql';
 import { join } from 'path';
+import { ClientsModule, Transport } from '@nestjs/microservices';
+import { WebpayController } from './webpay/webpay.controller';
+import { WebpayService } from './webpay/webpay.service';
+import { WebpayModule } from './webpay/webpay.module';
 
 @Module({
   imports: [TypeOrmModule.forRoot({
@@ -23,8 +27,8 @@ import { join } from 'path';
     driver: ApolloDriver,
     autoSchemaFile: join(process.cwd(), 'src/schema.gql'), // Generación automática del esquema
   }),
-  CarritoModule, ProductoCarritoModule],
-  controllers: [],
-  providers: [],
+  CarritoModule, ProductoCarritoModule, WebpayModule],
+  controllers: [WebpayController],
+  providers: [WebpayService],
 })
 export class AppModule {}

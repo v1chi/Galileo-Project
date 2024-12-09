@@ -22,7 +22,8 @@ import { ApolloDriver } from '@nestjs/apollo';
       driver: ApolloDriver,
       autoSchemaFile: join(process.cwd(), 'src/schema.gql'), // Generación automática del esquema
     }),
-    CursosModule,  
+    CursosModule
+    
   ],
   controllers: [],
   providers: [],

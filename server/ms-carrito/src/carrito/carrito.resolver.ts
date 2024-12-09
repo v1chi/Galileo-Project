@@ -62,4 +62,6 @@ export class CarritoResolver {
   async getCursosEnCarrito(@Args('idCarrito') idCarrito: number) {
     return this.carritoService.getCursosEnCarrito(idCarrito);  // Llama al servicio para obtener los cursos
   }
+
+  
 }

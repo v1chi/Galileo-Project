@@ -15,8 +15,8 @@ import { CarritoResolver } from './carrito.resolver';
       transport: Transport.RMQ,
       options: {
         urls: ['amqp://localhost:5672'], 
-        queue: 'course_queue', 
-        queueOptions: { durable: false },
+        queue: 'courses_queue', 
+        
       },
     },
   ]),

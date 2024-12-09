@@ -43,4 +43,5 @@ export class CursosResolver {
     return this.cursosService.findFiltered(filterCursoDto);
   }
 
+
 }
