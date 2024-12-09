@@ -1,4 +1,4 @@
-import { Resolver, Query, Mutation, Args } from '@nestjs/graphql';
+import { Resolver, Query, Mutation, Args, Int } from '@nestjs/graphql';
 import { ProductoCarritoService } from './producto-carrito.service';
 import { ProductoCarrito } from './entities/producto-carrito.entity';
 
@@ -9,7 +9,7 @@ export class ProductoCarritoResolver {
 
   // Consulta para obtener todos los productos en el carrito
   @Query(() => [ProductoCarrito])
-  async getProductosCarrito(@Args('idCarrito') idCarrito: number) {
+  async getProductosCarrito(@Args('idCarrito', {type: () => Int}) idCarrito: number) {
     return this.productoCarritoService.findAllByCarrito(idCarrito);  // Llama al servicio para obtener los productos
   }
 
