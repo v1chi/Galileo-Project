@@ -4,7 +4,7 @@ import { Transport, MicroserviceOptions } from '@nestjs/microservices';
 async function bootstrap() {
   const app = await NestFactory.create(AppModule);
 
-
+  app.enableCors();
   await app.listen(3003);
   console.log(`Servidor corriendo en el puerto ${3003}`);
 
