@@ -171,4 +171,10 @@ export class CarritoService {
     return this.carritoRepository.findOne({ where: { id } });
   }
 
+  // Método para obtener todos los carritos
+  findAll() {
+    // Retorna todos los carritos
+    return this.carritoRepository.find();
+  }
+
 }
