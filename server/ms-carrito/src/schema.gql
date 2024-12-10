@@ -16,16 +16,15 @@ type ProductoCarrito {
 }
 
 type Query {
-  getAllCarritos: [Carrito!]!
-  getCarrito(id: Int!): Carrito!
-  getHistorialCompras(idUsuario: Int!): [Carrito!]!
-  getCursosEnCarrito(idCarrito: Int!): [ProductoCarrito!]!
+  getCarrito(id: Float!): Carrito!
+  getHistorialCompras(idUsuario: Float!): [Carrito!]!
+  getCursosEnCarrito(idCarrito: Float!): [ProductoCarrito!]!
 }
 
 type Mutation {
-  createCarrito(idUsuario: Int!): Carrito!
-  addCurso(idCarrito: Int!, idCurso: Int!): Carrito!
-  removeCurso(idCarrito: Int!, idCurso: Int!): Boolean!
-  marcarCarritoComoPendiente(idCarrito: Int!): Carrito!
-  finalizarCarrito(idCarrito: Int!): Carrito!
+  createCarrito(idUsuario: Float!): Carrito!
+  addCurso(idCarrito: Float!, idCurso: Float!): Carrito!
+  removeCurso(idCarrito: Float!, idCurso: Float!): Boolean!
+  marcarCarritoComoPendiente(idCarrito: Float!): Carrito!
+  finalizarCarrito(idCarrito: Float!): Carrito!
 }
