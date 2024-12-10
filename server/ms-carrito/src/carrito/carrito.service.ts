@@ -26,6 +26,15 @@ export class CarritoService {
       return carritoActivo;
     }
 
+    // Verificar si el usuario tiene un carrito pendiente
+    const carritoPendiente = await this.carritoRepository.findOne({
+      where: { idUsuario, estado: 'pendiente' },
+    });
+
+    if (carritoPendiente) {
+      return carritoPendiente;
+    }
+
     const nuevoCarrito = this.carritoRepository.create({ idUsuario });
     return this.carritoRepository.save(nuevoCarrito);
   }
