@@ -40,6 +40,7 @@ input CreateUserDto {
 input UpdateUserDto {
   nombre: String
   password: String
+  email: String
   profesion: String
   pais: String
   genero: String
