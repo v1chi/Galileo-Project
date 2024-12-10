@@ -48,20 +48,20 @@ async commit(@Query() query, @Res() res: Response) {
     console.log('Commit response:', commitResponse);
     if (commitResponse.response_code === 0) {
       // Redirige a tu frontend con el token
-      return res.redirect(`http://localhost:3000/dashboard/resume?token=${token_ws}`);
+      return res.redirect(`http://localhost:3000/dashboard/payment/succes/resume?token=${token_ws}`);
     } else {
       // Redirige a tu frontend con el token, indicando que hubo un error
-      return res.redirect(`http://localhost:3000/dashboard/resume?token=${token_ws}`);
+      return res.redirect(`http://localhost:3000/dashboard/payment/error/resume?token=${token_ws}`);
     }
   } else if (!TBK_TOKEN && TBK_ID_SESION && TBK_ORDEN_COMPRA) {
     console.log('Payment cancelled due to timeout');
-    return res.redirect(`http://localhost:3000/dashboard/resume?token=${token_ws}`);
+    return res.redirect(`http://localhost:3000/dashboard/payment/error/resume?token=${token_ws}`);
   } else if (TBK_TOKEN && TBK_ORDEN_COMPRA && TBK_ID_SESION) {
     console.log('Payment cancelled by user');
-    return res.redirect(`http://localhost:3000/dashboard/resume?token=${token_ws}`);
+    return res.redirect(`http://localhost:3000/dashboard/payment/error/resume?token=${token_ws}`);
   } else {
     console.log('Unexpected error');
-    return res.redirect(`http://localhost:3000/dashboard/resume?token=${token_ws}`);
+    return res.redirect(`http://localhost:3000/dashboard/payment/error/resume?token=${token_ws}`);
   }
 }
 
