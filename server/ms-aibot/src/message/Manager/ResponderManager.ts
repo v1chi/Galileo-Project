@@ -1,6 +1,13 @@
+import { response } from "express";
 
 function formatResponse(message, predefinedResponse) {
   return `El mensaje del usuario es [${message}], la respuesta es en base a esto [${predefinedResponse}] crea una variante para este mensaje para hacerlo más variado, considerando que eres un asistente de la página web de compra de cursos online Galileo. mensajes cortos`;
+}
+
+function formatResponseseconcchance(message, predefinedResponse,responses ) {
+
+  
+  return `El mensaje del usuario es [${message}], la respuesta es en base a esto [${predefinedResponse}], pero ahora trata de tomar los datos de ${responses} para poder determinar la respuesta correcta a esta pregunta, si ninguna de las respuestas predeterminadeas corresponde a la pregunta puedes ir con decir que no sabes, recuerda crea una variante para este mensaje para hacerlo más variado, considerando que eres un asistente de la página web de compra de cursos online Galileo. mensajes cortos`;
 }
 
 function formatCursoResponse(message, predefinedResponse) {
@@ -181,6 +188,24 @@ function normalizeText(text) {
 }
 export default function getPredefinedResponse(message: string): string | null {
   const lowerMessage = normalizeText(message.toLowerCase());
+  const responses = [
+    ['Si necesitas ayuda, consulta nuestra sección de soporte o contáctanos a través del chat en vivo.'],
+    ['Lamentamos el inconveniente. Por favor, verifica tu conexión a internet y vuelve a intentarlo. Si el problema persiste, contáctanos.'],
+    ['Para iniciar sesión, por favor ingresa tu usuario y contraseña en la página de inicio.'],
+    ['Para salir de sesión, solo debes hacer clic en el botón "Cerrar sesión" en tu perfil.'],
+    ['Para ver tus datos de usuario, accede a tu perfil y revisa la sección "Mis Datos".'],
+    ['Claro, dinos tus intereses o el tema que deseas aprender, y te sugeriremos cursos ideales para ti.'],
+    ['Para comprar un curso basta con seleccionar el curso, luego presionar el botón de agregar compra.'],
+    ['Para completar tu compra, revisa tu carrito y haz clic en el botón "Completar compra".'],
+    ['Si deseas cancelar tu compra, por favor accede a tu carrito y selecciona la opción de cancelar compra.'],
+    ['Consulta nuestras promociones en la página principal. Puedes aplicar códigos de descuento en el proceso de pago.'],
+    ['Aceptamos tarjetas de crédito, débito, y otros métodos de pago. Si necesitas factura, la puedes descargar desde tu historial de compras.'],
+    ['Al completar un curso, podrás descargar tu certificado desde tu perfil en la sección "Mis Certificados".'],
+    ['Cada curso incluye una descripción con duración, contenido, y nivel recomendado en su página de detalles.'],
+    ['Para solicitar un reembolso, visita la sección "Mis Compras" y selecciona la opción de reembolso para el curso correspondiente.'],
+    ['Nuestra plataforma es compatible con dispositivos móviles, tabletas y computadoras. Solo necesitas un navegador web actualizado.'],
+    ['Actualizamos constantemente nuestros cursos para ofrecer contenido nuevo y relevante. Revisa las novedades en la sección "Actualizaciones".']
+  ];
 
   // Patrones relacionados con la compra de cursos
   const buyCoursePatterns = [
@@ -365,31 +390,31 @@ export default function getPredefinedResponse(message: string): string | null {
 
   for (const pattern of helpPatterns) {
     if (pattern.test(lowerMessage)) {
-      return formatResponse(message, 'Si necesitas ayuda, consulta nuestra sección de soporte o contáctanos a través del chat en vivo.');
+      return formatResponse(message, responses[0][0]);
     }
   }
   
   for (const pattern of technicalIssuePatterns) {
     if (pattern.test(lowerMessage)) {
-      return formatResponse(message, 'Lamentamos el inconveniente. Por favor, verifica tu conexión a internet y vuelve a intentarlo. Si el problema persiste, contáctanos.');
+      return formatResponse(message, responses[1][0]);
     }
   }
   
   for (const pattern of loginPatterns) {
     if (pattern.test(lowerMessage)) {
-      return formatResponse(message, 'Para iniciar sesión, por favor ingresa tu usuario y contraseña en la página de inicio.');
+      return formatResponse(message, responses[2][0]);
     }
   }
   
   for (const pattern of logoutPatterns) {
     if (pattern.test(lowerMessage)) {
-      return formatResponse(message, 'Para salir de sesión, solo debes hacer clic en el botón "Cerrar sesión" en tu perfil.');
+      return formatResponse(message, responses[3][0]);
     }
   }
   
   for (const pattern of viewUserDataPatterns) {
     if (pattern.test(lowerMessage)) {
-      return formatResponse(message, 'Para ver tus datos de usuario, accede a tu perfil y revisa la sección "Mis Datos".');
+      return formatResponse(message, responses[4][0]);
     }
   }
   
@@ -414,70 +439,70 @@ export default function getPredefinedResponse(message: string): string | null {
   
   for (const pattern of recommendCoursePatterns) {
     if (pattern.test(lowerMessage)) {
-      return formatResponse(message, 'Claro, dinos tus intereses o el tema que deseas aprender, y te sugeriremos cursos ideales para ti.');
+      return formatResponse(message, responses[5][0]);
     }
   }
   
   for (const pattern of buyCoursePatterns) {
     if (pattern.test(lowerMessage)) {
-      return formatResponse(message, 'Para comprar un curso basta con seleccionar el curso, luego presionar el botón de agregar compra.');
+      return formatResponse(message, responses[6][0]);
     }
   }
   
   for (const pattern of completePurchasePatterns) {
     if (pattern.test(lowerMessage)) {
-      return formatResponse(message, 'Para completar tu compra, revisa tu carrito y haz clic en el botón "Completar compra".');
+      return formatResponse(message, responses[7][0]);
     }
   }
   
   for (const pattern of cancelPurchasePatterns) {
     if (pattern.test(lowerMessage)) {
-      return formatResponse(message, 'Si deseas cancelar tu compra, por favor accede a tu carrito y selecciona la opción de cancelar compra.');
+      return formatResponse(message, responses[8][0]);
     }
   }
   
   for (const pattern of promoPatterns) {
     if (pattern.test(lowerMessage)) {
-      return formatResponse(message, 'Consulta nuestras promociones en la página principal. Puedes aplicar códigos de descuento en el proceso de pago.');
+      return formatResponse(message, responses[9][0]);
     }
   }
   
   for (const pattern of paymentPatterns) {
     if (pattern.test(lowerMessage)) {
-      return formatResponse(message, 'Aceptamos tarjetas de crédito, débito, y otros métodos de pago. Si necesitas factura, la puedes descargar desde tu historial de compras.');
+      return formatResponse(message, responses[10][0]);
     }
   }
   
   for (const pattern of certificatePatterns) {
     if (pattern.test(lowerMessage)) {
-      return formatResponse(message, 'Al completar un curso, podrás descargar tu certificado desde tu perfil en la sección "Mis Certificados".');
+      return formatResponse(message, responses[11][0]);
     }
   }
   
   for (const pattern of courseDetailsPatterns) {
     if (pattern.test(lowerMessage)) {
-      return formatResponse(message, 'Cada curso incluye una descripción con duración, contenido, y nivel recomendado en su página de detalles.');
+      return formatResponse(message, responses[12][0]);
     }
   }
   
   for (const pattern of refundPatterns) {
     if (pattern.test(lowerMessage)) {
-      return formatResponse(message, 'Para solicitar un reembolso, visita la sección "Mis Compras" y selecciona la opción de reembolso para el curso correspondiente.');
+      return formatResponse(message, responses[13][0]);
     }
   }
   
   for (const pattern of compatibilityPatterns) {
     if (pattern.test(lowerMessage)) {
-      return formatResponse(message, 'Nuestra plataforma es compatible con dispositivos móviles, tabletas y computadoras. Solo necesitas un navegador web actualizado.');
+      return formatResponse(message, responses[14][0]);
     }
   }
   
   for (const pattern of updatePatterns) {
     if (pattern.test(lowerMessage)) {
-      return formatResponse(message, 'Actualizamos constantemente nuestros cursos para ofrecer contenido nuevo y relevante. Revisa las novedades en la sección "Actualizaciones".');
+      return formatResponse(message, responses[15][0]);
     }
   }
   
 
-  return formatResponse(message, 'Lo siento, no entiendo tu pregunta. Por favor, intenta formularla de otra manera o contáctanos al soporte.'); // Si no coincide ningún patrón
+  return formatResponseseconcchance(message, 'Lo siento, no entiendo tu pregunta. Por favor, intenta formularla de otra manera o contáctanos al soporte.', responses); // Si no coincide ningún patrón
 }
