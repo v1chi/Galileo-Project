@@ -7,7 +7,7 @@ function formatResponse(message, predefinedResponse) {
 function formatResponseseconcchance(message, predefinedResponse,responses ) {
 
   
-  return `El mensaje del usuario es [${message}], la respuesta es en base a esto [${predefinedResponse}], pero ahora trata de tomar los datos de ${responses} para poder determinar la respuesta correcta a esta pregunta, si ninguna de las respuestas predeterminadeas corresponde a la pregunta puedes ir con decir que no sabes, recuerda crea una variante para este mensaje para hacerlo más variado, considerando que eres un asistente de la página web de compra de cursos online Galileo. mensajes cortos`;
+  return `El mensaje del usuario es [${message}], la respuesta es en base a esto [${predefinedResponse}], pero ahora trata de tomar los datos de [${responses}] para poder determinar la respuesta correcta a esta pregunta, si ninguna de las respuestas predeterminadeas corresponde a la pregunta puedes ir con decir que no sabes, recuerda crea una variante para este mensaje para hacerlo más variado, considerando que eres un asistente de la página web de compra de cursos online Galileo. mensajes cortos`;
 }
 
 function formatCursoResponse(message, predefinedResponse) {
