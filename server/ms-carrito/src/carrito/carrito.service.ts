@@ -41,6 +41,16 @@ export class CarritoService {
 
   // Método que agrega un curso al carrito y actualiza el precio
   async addCurso(idCarrito: number, idCurso: number) {
+    
+    //Ver si ya existe el curso en ese carrito
+    const cursoExistente = await this.productoCarritoRepository.findOne({
+      where: { idCarrito, idCurso },
+    });
+  
+    if (cursoExistente) {
+      throw new Error('El curso ya está en el carrito.');
+    }
+
     // Obtener el precio del curso desde el microservicio de cursos
     console.log("añadiendo curso al carrito", idCarrito);
     const cursoPrecio = await firstValueFrom(
