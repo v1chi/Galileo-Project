@@ -184,90 +184,119 @@ export default function getPredefinedResponse(message: string): string | null {
 
   // Patrones relacionados con la compra de cursos
   const buyCoursePatterns = [
-    /comprar.*curso|adquirir.*curso|obtener.*curso/,        // Variaciones sobre como comprar un curso
-    /quiero.*curso|me.*interesa.*curso|me.*gustaria.*curso/, // Frases de interes o deseo de un curso
-    /como.*adquirir.*curso|informacion.*sobre.*curso/        // Frases de informacion sobre cursos
+    /comprar.*curso|adquirir.*curso|obtener.*curso|como.*comprar.*curso|donde.*adquirir.*curso|me.*interesa.*comprar.*curso/,
+    /quiero.*curso|me.*interesa.*curso|me.*gustaria.*curso|quiero.*obtener.*curso|deseo.*comprar.*curso|me.*gustaria.*aprender.*curso/,
+    /como.*adquirir.*curso|informacion.*sobre.*curso|donde.*puedo.*comprar.*curso|quiero.*informarme.*sobre.*curso|informame.*sobre.*curso/,
+    /que.*curso.*me.*recomiendas|recomiendame.*un.*curso|cual.*es.*el.*mejor.*curso|hay.*algún.*curso.*recomendado/,
+    /agregar.*curso|añadir.*curso|incorporar.*curso|sumar.*curso|agregar.*un.*curso|quiero.*agregar.*curso|quiero.*añadir.*curso|como.*agregar.*curso/
   ];
   
-  // Patrones relacionados con inicio de sesion
+  
   const loginPatterns = [
-    /inicio.*sesion|acceder|entrar|iniciar.*sesion/, // Variaciones comunes en la entrada al sistema
-    /loguearse|identificacion|acceso/                // Variaciones relacionadas con acceso
+    /inicio.*sesion|acceder|entrar|iniciar.*sesion|logearse|loguearse|acceso.*cuenta|entrar.*a.*mi.*cuenta|iniciar.*sesion.*plataforma/,
+    /loguearse|identificacion|acceso|quiero.*iniciar.*sesion|acceder.*a.*mi.*perfil|entrar.*al.*sistema/,
+    /como.*iniciar.*sesion|necesito.*acceder.*a.*mi.*cuenta|como.*entrar.*a.*mi.*perfil/,
+    /acceso.*usuario|iniciar.*mi.*sesion|me.*gustaria.*acceder.*a.*mi.*perfil/
   ];
   
-  // Patrones relacionados con salida de sesion
   const logoutPatterns = [
-    /salir.*sesion|cerrar.*sesion|desconectar.*sesion/, // Variaciones para salir del sistema
-    /finalizar.*sesion|terminar.*sesion/               // Frases relacionadas con terminar la sesion
+    /salir.*sesion|cerrar.*sesion|desconectar.*sesion|cerrar.*mi.*cuenta|terminar.*sesion/,
+    /finalizar.*sesion|terminar.*sesion|desconectar.*mi.*cuenta|salir.*del.*sistema|salir.*de.*mi.*perfil/,
+    /como.*cerrar.*sesion|quiero.*salir.*del.*sistema|desconectar.*mi.*sesion/,
+    /cerrar.*mi.*perfil|finalizar.*sesion.*en.*la.*plataforma/
   ];
   
-  // Patrones relacionados con la cancelacion de compras
   const cancelPurchasePatterns = [
-    /cancelar.*compra|anular.*compra|devolver.*producto/, // Variaciones para cancelar o anular una compra
-    /quiero.*devolver.*compra|como.*cancelar.*pedido/     // Frases para devolver o cancelar un pedido
+    /cancelar.*compra|anular.*compra|devolver.*producto|quiero.*cancelar.*pedido|como.*cancelar.*mi.*compra/,
+    /quiero.*devolver.*compra|como.*cancelar.*pedido|anular.*compra|devolver.*articulo|necesito.*devolver.*producto/,
+    /como.*anular.*pedido|quiero.*hacer.*devolucion|como.*anular.*compra/,
+    /quiero.*devolver.*mi.*compra|cancelar.*pedido.*realizado|quiero.*anular.*mi.*pedido/
   ];
   
-  // Patrones relacionados con completar una compra
   const completePurchasePatterns = [
-    /completar.*compra|finalizar.*compra|confirmar.*compra/,  // Variaciones para completar una compra
-    /realizar.*pago|confirmacion.*pago|finalizar.*pedido/     // Frases relacionadas con completar el pago
+    /completar.*compra|finalizar.*compra|confirmar.*compra|terminar.*mi.*compra|completar.*pedido/,
+    /realizar.*pago|confirmacion.*pago|finalizar.*pedido|realizar.*compra|realizar.*mi.*pago/,
+    /confirmar.*mi.*compra|realizar.*pago.*final|completar.*mi.*pedido/,
+    /hacer.*pago|confirmar.*mi.*compra|finalizar.*mi.*pago|realizar.*pago.*final/
   ];
   
-  // Patrones relacionados con ver los datos del usuario
   const viewUserDataPatterns = [
-    /ver.*mis.*datos|mostrar.*mis.*informacion|consultar.*mis.*datos/, // Variaciones para ver los datos del usuario
-    /ver.*perfil|consultar.*informacion.*personal/                   // Frases para ver perfil o datos personales
+    /ver.*mis.*datos|mostrar.*mis.*informacion|consultar.*mis.*datos|consultar.*mi.*perfil|mostrar.*mis.*informacion.*personal/,
+    /ver.*perfil|consultar.*informacion.*personal|ver.*mi.*informacion|consultar.*datos.*personales/,
+    /mostrar.*informacion.*de.*usuario|ver.*datos.*personales|quiero.*consultar.*mi.*perfil/,
+    /consultar.*mi.*informacion.*de.*usuario|ver.*mis.*datos.*personales|mostrar.*mi.*perfil/
   ];
   
   const helpPatterns = [
-    /necesito.*ayuda|ayuda.*por.*favor|como.*funciona|donde.*encontrar|que.*hacer/, 
-    /soporte.*tecnico|problema.*con.*plataforma|ayuda.*con.*curso/
+    /necesito.*ayuda|ayuda.*por.*favor|como.*funciona|donde.*encontrar|que.*hacer|necesito.*soporte/,
+    /soporte.*tecnico|problema.*con.*plataforma|ayuda.*con.*curso|necesito.*informacion.*adicional|necesito.*ayuda.*con.*mi.*cuenta/,
+    /ayuda.*para.*comprar|problema.*al.*acceder.*curso|necesito.*ayuda.*con.*pago/,
+    /me.*puedes.*ayudar|que.*hago.*si.*no.*puedo.*entrar|tengo.*un.*problema.*con.*la.*plataforma/
   ];
   
   const paymentPatterns = [
-    /metodos.*de.*pago|formas.*de.*pago|puedo.*pagar.*con|tarjetas.*aceptadas/, 
-    /factura.*curso|recibo.*compra|obtener.*factura/
+    /metodos.*de.*pago|formas.*de.*pago|puedo.*pagar.*con|tarjetas.*aceptadas|como.*pago.*el.*curso/,
+    /factura.*curso|recibo.*compra|obtener.*factura|como.*obtener.*factura|como.*realizar.*el.*pago/,
+    /formas.*de.*pago.*disponibles|metodos.*de.*pago.*para.*curso|como.*pagar.*por.*curso/,
+    /¿que.*metodos.*de.*pago.*tienen|quiero.*realizar.*pago|¿como.*obtener.*mi.*recibo/
   ];
   
   const certificatePatterns = [
-    /certificado.*de.*curso|obtener.*certificado|como.*descargar.*certificado/,
-    /tienen.*certificacion|dan.*certificados/
+    /certificado.*de.*curso|obtener.*certificado|como.*descargar.*certificado|requisitos.*para.*certificado/,
+    /tienen.*certificacion|dan.*certificados|quiero.*certificado.*de.*curso|como.*obtener.*mi.*certificado/,
+    /como.*obtener.*certificado.*curso|¿donde.*descargar.*certificado|obtener.*certificado.*de.*formacion/,
+    /me.*entregan.*certificado|cuando.*entrego.*el.*curso.*me.*dan.*certificado/
   ];
   
   const courseDetailsPatterns = [
-    /duracion.*del.*curso|cuanto.*dura.*curso|contenido.*del.*curso/, 
-    /que.*incluye.*curso|nivel.*de.*curso|quien.*puede.*tomar.*curso/
+    /duracion.*del.*curso|cuanto.*dura.*curso|contenido.*del.*curso|que.*incluye.*curso|nivel.*de.*curso/,
+    /quien.*puede.*tomar.*curso|informacion.*sobre.*curso|detalles.*sobre.*el.*curso|como.*es.*el.*contenido/,
+    /que.*temas.*trata.*curso|cual.*es.*el.*contenido|nivel.*de.*dificultad.*curso/,
+    /quien.*puede.*tomar.*este.*curso|informacion.*completa.*sobre.*curso|contenido.*detallado.*del.*curso/
   ];
   
   const refundPatterns = [
-    /solicitar.*reembolso|quiero.*reembolso|devolver.*dinero/,
-    /como.*pedir.*reembolso|politica.*de.*reembolso/
+    /solicitar.*reembolso|quiero.*reembolso|devolver.*dinero|como.*pedir.*reembolso|política.*de.*reembolso/,
+    /quiero.*que.*me.*reembolsen|reembolso.*compra|quiero.*mi.*dinero.*de.*vuelta/,
+    /como.*recibir.*reembolso|quiero.*devolver.*mi.*dinero|reembolso.*por.*producto/,
+    /solicitar.*reembolso.*curso|reembolso.*por.*compra|como.*pedir.*devolucion.*dinero/
   ];
   
   const recommendCoursePatterns = [
-    /recomienda.*curso|sugerencias.*de.*curso|que.*curso.*me.*recomiendas/, 
-    /me.*puedes.*sugerir.*curso/
+    /recomienda.*curso|sugerencias.*de.*curso|que.*curso.*me.*recomiendas|me.*puedes.*sugerir.*curso/,
+    /sugerir.*curso|que.*cursos.*me.*recomiendas|me.*recomiendas.*algún.*curso/,
+    /que.*curso.*es.*bueno|cual.*es.*el.*mejor.*curso|me.*puedes.*dar.*una.*recomendación/,
+    /que.*cursos.*debería.*tomar|cual.*es.*el.*mejor.*para.*mi|que.*recomiendas.*estudiar/
   ];
   
   const technicalIssuePatterns = [
-    /no.*puedo.*acceder|error.*en.*plataforma|problema.*con.*curso/, 
-    /no.*funciona.*curso|no.*carga.*contenido|fallo.*tecnico/
+    /no.*puedo.*acceder|error.*en.*plataforma|problema.*con.*curso|no.*funciona.*curso|no.*carga.*contenido/,
+    /fallo.*tecnico|problema.*tecnico|no.*accedo.*a.*mi.*curso|problema.*con.*mi.*perfil/,
+    /error.*en.*sistema|no.*puedo.*entrar.*a.*plataforma|fallo.*tecnico.*al.*acceder/,
+    /no.*me.*deja.*entrar|no.*puedo.*ver.*el.*contenido|problema.*con.*mi.*curso/
   ];
   
   const promoPatterns = [
-    /tienen.*promociones|hay.*descuentos|ofertas.*disponibles/, 
-    /codigo.*de.*descuento|cupon.*de.*descuento/
+    /tienen.*promociones|hay.*descuentos|ofertas.*disponibles|ofertas.*especiales|promociones.*activas/,
+    /codigo.*de.*descuento|cupon.*de.*descuento|oferta.*exclusiva|descuento.*en.*curso/,
+    /ofertas.*en.*cursos|promociones.*para.*cursos|descuentos.*en.*plataforma/,
+    /cupon.*descuento|descuentos.*en.*plataforma|oferta.*del.*día/
   ];
   
   const compatibilityPatterns = [
-    /funciona.*en.*movil|puedo.*usar.*tableta|dispositivos.*compatibles/, 
-    /requisitos.*tecnicos|necesito.*software.*especial/
+    /funciona.*en.*movil|puedo.*usar.*tableta|dispositivos.*compatibles|se.*puede.*usar.*en.*telefono|requisitos.*tecnicos/,
+    /necesito.*software.*especial|necesito.*aplicacion.*movil|dispositivos.*compatibles.*con.*curso/,
+    /se.*puede.*usar.*en.*movil|requisitos.*de.*hardware.*para.*curso|necesito.*requisitos.*tecnicos/,
+    /funciona.*con.*tabletas|es.*compatible.*con.*moviles|necesito.*dispositivo.*compatibles/
   ];
   
   const updatePatterns = [
-    /actualizaciones.*del.*curso|nuevo.*contenido|ampliacion.*del.*curso/, 
-    /mejoras.*del.*curso|versiones.*actualizadas/
+    /actualizaciones.*del.*curso|nuevo.*contenido|ampliacion.*del.*curso|mejoras.*del.*curso/,
+    /versiones.*actualizadas|nuevas.*funciones.*del.*curso|actualizacion.*reciente|cambios.*en.*el.*curso/,
+    /mejoras.*del.*contenido|actualizaciones.*del.*material|contenido.*actualizado/,
+    /modificaciones.*al.*curso|nuevo.*contenido.*adicional|cursos.*actualizados/
   ];
+  
   
 
   // Patrones relacionados con la búsqueda de cursos en el programa
@@ -280,6 +309,33 @@ export default function getPredefinedResponse(message: string): string | null {
   ];
   
 
+  const specificCoursePatterns = {
+    matematicas: /curso.*matematica|curso.*matematicas|clase.*matematica|clase.*matematicas|algebra.*lineal.*basica|calculo.*diferencial.*e.*integral/,
+    fisica: /curso.*fisica|clase.*fisica|curso.*fisico|clase.*fisico|fisica.*cuantica.*para.*principiantes|mecanica.*clasica/,
+    biologia: /curso.*biologia|clase.*biologia|curso.*biologico|clase.*biologico/,
+    quimica: /curso.*quimica|clase.*quimica|curso.*quimico|clase.*quimico/,
+    informatica: /curso.*informatica|clase.*informatica|curso.*computacion|clase.*computacion|introduccion.*a.*python|desarrollo.*web.*con.*react/,
+    programacion: /curso.*programacion|clase.*programacion|curso.*codigo|clase.*codigo|desarrollo.*web.*con.*react|introduccion.*a.*python/,
+    ingles: /curso.*ingles|clase.*ingles|curso.*english|clase.*english/,
+    historia: /curso.*historia|clase.*historia|curso.*historico|clase.*historico/,
+    filosofia: /curso.*filosofia|clase.*filosofia/,
+    economia: /curso.*economia|clase.*economia/,
+    psicologia: /curso.*psicologia|clase.*psicologia/,
+    arte: /curso.*arte|clase.*arte|curso.*artes|clase.*artes|diseno.*grafico.*con.*adobe.*photoshop/,
+    musica: /curso.*musica|clase.*musica|curso.*musical|clase.*musical/,
+    arquitectura: /curso.*arquitectura|clase.*arquitectura|curso.*arquitectonico|clase.*arquitectonico/,
+    derecho: /curso.*derecho|clase.*derecho|curso.*juridico|clase.*juridico/,
+    medicina: /curso.*medicina|clase.*medicina|curso.*medico|clase.*medico/,
+    administracion: /curso.*administracion|clase.*administracion|curso.*gestion|clase.*gestion/,
+    marketing: /curso.*marketing|clase.*marketing|curso.*publicidad|clase.*publicidad/,
+    diseño: /curso.*diseno|clase.*diseno|curso.*grafico|clase.*grafico|diseno.*grafico.*con.*adobe.*photoshop|ux\/ui.*para.*principiantes/,
+    contabilidad: /curso.*contabilidad|clase.*contabilidad|curso.*finanzas|clase.*finanzas/,
+};
+
+
+
+  /**
+   
   const specificCoursePatterns = {
     matematicas: /curso.*matematica|curso.*matematicas|clase.*matematica|clase.*matematicas/,
     fisica: /curso.*fisica|clase.*fisica|curso.*fisico|clase.*fisico|clase.*fisica|curso.*fisica/,
@@ -302,6 +358,8 @@ export default function getPredefinedResponse(message: string): string | null {
     diseño: /curso.*diseño|clase.*diseño|curso.*grafico|clase.*grafico/,
     contabilidad: /curso.*contabilidad|clase.*contabilidad|curso.*finanzas|clase.*finanzas/,
   };
+   
+   */
 
   // Verificación de patrones y respuesta utilizando la función auxiliar
 
